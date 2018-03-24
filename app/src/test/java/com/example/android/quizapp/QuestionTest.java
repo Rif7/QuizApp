@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Rif-ACER on 22.03.2018.
- */
+
 public class QuestionTest {
     private static QuestionManager questionManager = new QuestionManager();
 

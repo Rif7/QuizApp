@@ -7,16 +7,13 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Rif-ACER on 22.03.2018.
- */
 public class QuestionManagerTest {
     static private QuestionManager questionManager = new QuestionManager();
 
     @Test
     public void getTextQuestion() throws Exception {
         String question = "Question1";
-        String answer = "Answer1";
+        String answer = "Answer1".toLowerCase();
 
         AbstractQuestion questionObject = questionManager.getTextQuestion(question, answer);
         assertEquals(question, questionObject.getQuestion());
