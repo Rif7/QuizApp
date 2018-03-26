@@ -12,14 +12,14 @@ public class QuestionTest {
 
     @Test
     public void textEntryQuestionTest() throws Exception {
-        TextEntryQuestion textEntryQuestion = questionManager.getTextQuestion("Question1", "Answer1");
+        TextEntryQuestion textEntryQuestion = questionManager.createTextQuestion("Question1", "Answer1");
         assertFalse(textEntryQuestion.isAnswered());
         assertFalse(textEntryQuestion.isCorrect());
         textEntryQuestion.setRespond("Answer1");
         assertTrue(textEntryQuestion.isAnswered());
         assertTrue(textEntryQuestion.isCorrect());
 
-        textEntryQuestion = questionManager.getTextQuestion("Question2", "Answer2");
+        textEntryQuestion = questionManager.createTextQuestion("Question2", "Answer2");
         textEntryQuestion.setRespond("Answer1");
         assertTrue(textEntryQuestion.isAnswered());
         assertFalse(textEntryQuestion.isCorrect());
@@ -31,7 +31,7 @@ public class QuestionTest {
         String answer = "Answer1";
         String[] choices = {"Answer2", "Answer3", "Answer4"};
 
-        SingleChoiceQuestion singleChoiceQuestion = questionManager.getSingleChoiceQuestion(question, answer, choices);
+        SingleChoiceQuestion singleChoiceQuestion = questionManager.createSingleChoiceQuestion(question, answer, choices);
         assertFalse(singleChoiceQuestion.isAnswered());
         assertFalse(singleChoiceQuestion.isCorrect());
         ArrayList<Choice> choicesList = singleChoiceQuestion.getChoices();
@@ -62,7 +62,7 @@ public class QuestionTest {
         String[] answers = {"Answer1", "Answer3"};
         String[] choices = {"Answer2", "Answer4"};
 
-        MultipleChoiceQuestion multipleChoiceQuestion = questionManager.getMultipleChoiceQuestion(question, answers, choices);
+        MultipleChoiceQuestion multipleChoiceQuestion = questionManager.createMultipleChoiceQuestion(question, answers, choices);
         assertFalse(multipleChoiceQuestion.isAnswered());
         assertFalse(multipleChoiceQuestion.isCorrect());
         ArrayList<Choice> choicesList = multipleChoiceQuestion.getChoices();

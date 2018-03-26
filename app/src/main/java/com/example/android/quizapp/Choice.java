@@ -1,11 +1,9 @@
 package com.example.android.quizapp;
 
-import java.util.HashMap;
+import android.widget.CompoundButton;
 
 public class Choice {
-    private static HashMap<String, Choice> resIdMap;
-
-    private String resId;
+    private CompoundButton compoundButtonRef;
     private String choiceText;
     private boolean isChosen;
     private boolean isCorrect;
@@ -15,21 +13,20 @@ public class Choice {
         this.isCorrect = isCorrect;
     }
 
+    void setCompoundButtonRef(CompoundButton compoundButton) {
+        this.compoundButtonRef = compoundButton;
+    }
+
+    void updateAnswer() {
+        isChosen = compoundButtonRef.isChecked();
+    }
+
     String getChoiceText() {
         return choiceText;
     }
 
     boolean isCorrect() {
         return isCorrect;
-    }
-
-    void setId(String resId) {
-        this.resId = resId;
-        resIdMap.put(this.resId, this);
-    }
-
-    public static HashMap<String, Choice> getResIdMap() {
-        return resIdMap;
     }
 
     boolean isChosen() {

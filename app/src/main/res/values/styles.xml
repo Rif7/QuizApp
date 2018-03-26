@@ -4,6 +4,7 @@
         <attr name="questionStyleRef" format="reference" />
         <attr name="textAnswerStyleRef" format="reference" />
         <attr name="questionAndAnswerLayoutRef" format="reference" />
+        <attr name="gradingButtonStyleRef" format="reference" />
     </declare-styleable>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -14,20 +15,14 @@
         <item name="questionAndAnswerLayoutRef">@style/questionAndAnswerLayout</item>
         <item name="questionStyleRef">@style/question</item>
         <item name="textAnswerStyleRef">@style/textAnswer</item>
-    </style>
-
-    <style name="header" parent="Base.TextAppearance.AppCompat.Headline">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/colorAccent</item>
-        <item name="android:text">######################"</item>
+        <item name="gradingButtonStyleRef">@style/gradingButton</item>
     </style>
 
     <style name="intro" parent="Base.TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/holo_purple</item>
-        <item name="android:text">AAAA\n BBBB\n CCCC"</item>
+        <item name="android:text">AAAA\nBBBB\nCCCC"</item>
     </style>
 
     <style name="question" parent="Base.TextAppearance.AppCompat">
@@ -59,6 +54,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="gradingButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Verify your answers</item>
+        <item name="android:layout_alignParentBottom">true</item>
     </style>
 
 </resources>

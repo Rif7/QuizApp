@@ -1,10 +1,8 @@
 package com.example.android.quizapp;
 
-import android.util.Log;
+import android.widget.EditText;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 abstract class AbstractQuestion {
     private String question;
@@ -12,15 +10,14 @@ abstract class AbstractQuestion {
     AbstractQuestion(String question) {
         this.question = question;
     }
-
     String getQuestion() {
         return question;
     }
 
     abstract boolean isCorrect();
-
     abstract boolean isAnswered();
 
+    abstract void updateAnswer();
 }
 
 abstract class ChoiceQuestion extends AbstractQuestion {
@@ -44,6 +41,13 @@ abstract class ChoiceQuestion extends AbstractQuestion {
         return false;
     }
 
+    @Override
+    void updateAnswer() {
+        for (Choice choice : this.choices) {
+            choice.updateAnswer();
+        }
+    }
+
 }
 
 
@@ -61,6 +65,7 @@ class MultipleChoiceQuestion extends ChoiceQuestion {
         }
         return true;
     }
+
 
 }
 
@@ -80,10 +85,10 @@ class SingleChoiceQuestion extends ChoiceQuestion {
     }
 }
 
-
 class TextEntryQuestion extends AbstractQuestion {
     private String answer;
     private String respond;
+    private EditText editTextRef;
 
     TextEntryQuestion(String question, String answer) {
         super(question);
@@ -97,6 +102,16 @@ class TextEntryQuestion extends AbstractQuestion {
 
     void setRespond(String respond) {
         this.respond = respond.toLowerCase();
+    }
+
+    void setEditTextRef(EditText editText) {
+        editTextRef = editText;
+    }
+
+
+    @Override
+    void updateAnswer() {
+        respond = editTextRef.getText().toString();
     }
 
     @Override

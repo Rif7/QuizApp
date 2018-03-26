@@ -15,7 +15,7 @@ public class QuestionManagerTest {
         String question = "Question1";
         String answer = "Answer1".toLowerCase();
 
-        AbstractQuestion questionObject = questionManager.getTextQuestion(question, answer);
+        AbstractQuestion questionObject = questionManager.createTextQuestion(question, answer);
         assertEquals(question, questionObject.getQuestion());
         TextEntryQuestion textEntryQuestion = (TextEntryQuestion) questionObject;
         assertEquals(answer, textEntryQuestion.getAnswer());
@@ -27,7 +27,7 @@ public class QuestionManagerTest {
         String answer = "Answer1";
         String[] choices = {"Answer2", "Answer3", "Answer4"};
 
-        AbstractQuestion questionObject = questionManager.getSingleChoiceQuestion(question, answer, choices);
+        AbstractQuestion questionObject = questionManager.createSingleChoiceQuestion(question, answer, choices);
         assertEquals(question, questionObject.getQuestion());
         SingleChoiceQuestion singleChoiceQuestion = (SingleChoiceQuestion) questionObject;
         ArrayList<Choice> choiceArrayList = singleChoiceQuestion.getChoices();
@@ -44,7 +44,7 @@ public class QuestionManagerTest {
     }
 
     private void testMultipleChoice(String question, String[] answers, String choices[]) {
-        AbstractQuestion questionObject = questionManager.getMultipleChoiceQuestion(question, answers, choices);
+        AbstractQuestion questionObject = questionManager.createMultipleChoiceQuestion(question, answers, choices);
         assertEquals(question, questionObject.getQuestion());
         MultipleChoiceQuestion multipleChoiceQuestion = (MultipleChoiceQuestion) questionObject;
         ArrayList<Choice> choiceArrayList = multipleChoiceQuestion.getChoices();
@@ -67,5 +67,20 @@ public class QuestionManagerTest {
         testMultipleChoice("Question3", new String[]{"All correct answer1", "All correct answer2"}, new String[]{});
     }
 
+    @Test
+    public void getQuestionList() throws Exception {
+        questionManager = new QuestionManager();
+
+        questionManager.createTextQuestion("Q1", "A1");
+        questionManager.createSingleChoiceQuestion("Q2", "A1", new String[]{"A2"});
+        questionManager.createMultipleChoiceQuestion("Q3", new String[]{"A1"}, new String[]{"A2"});
+
+        ArrayList<AbstractQuestion> questionList = questionManager.getQuestionList();
+        int counter = 0;
+        for (AbstractQuestion question : questionList) {
+            counter++;
+            assertEquals(question.getQuestion(), "Q" + counter);
+        }
+    }
 
 }

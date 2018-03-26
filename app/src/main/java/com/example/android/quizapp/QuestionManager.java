@@ -1,23 +1,38 @@
 package com.example.android.quizapp;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 
 class QuestionManager {
-    TextEntryQuestion getTextQuestion(String question, String answer) {
-        return new TextEntryQuestion(question, answer);
+    ArrayList<AbstractQuestion> questionList;
+
+    QuestionManager() {
+        questionList = new ArrayList<>();
     }
 
-    SingleChoiceQuestion getSingleChoiceQuestion(String question, String answer, String[] choices) {
+    ArrayList<AbstractQuestion> getQuestionList() {
+        return questionList;
+    }
+
+    TextEntryQuestion createTextQuestion(String question, String answer) {
+        TextEntryQuestion questionObject = new TextEntryQuestion(question, answer);
+        questionList.add(questionObject);
+        return questionObject;
+    }
+
+    SingleChoiceQuestion createSingleChoiceQuestion(String question, String answer, String[] choices) {
         ArrayList<Choice> choicesList = new ArrayList<>();
         choicesList.add(new Choice(answer, true));
         for (String choice : choices) {
             choicesList.add(new Choice(choice, false));
         }
-        return new SingleChoiceQuestion(question, choicesList);
+        Collections.shuffle(choicesList);
+        SingleChoiceQuestion questionObject = new SingleChoiceQuestion(question, choicesList);
+        questionList.add(questionObject);
+        return questionObject;
     }
 
-    MultipleChoiceQuestion getMultipleChoiceQuestion(String question, String[] answers, String[] choices) {
+    MultipleChoiceQuestion createMultipleChoiceQuestion(String question, String[] answers, String[] choices) {
         ArrayList<Choice> choicesList = new ArrayList<>();
         for (String choice : answers) {
             choicesList.add(new Choice(choice, true));
@@ -25,8 +40,19 @@ class QuestionManager {
         for (String choice : choices) {
             choicesList.add(new Choice(choice, false));
         }
-        return new MultipleChoiceQuestion(question, choicesList);
+        Collections.shuffle(choicesList);
+        MultipleChoiceQuestion questionObject = new MultipleChoiceQuestion(question, choicesList);
+        questionList.add(questionObject);
+        return questionObject;
     }
 
+//    int getNumberOfAllQuestions() {
+//        return questionList.size();
+//    }
+//
+//    void getNumberOfCorrectAnswers() {
+//         int counterCorrectAnswers = 0;
+//         for
+//    }
 
 }
