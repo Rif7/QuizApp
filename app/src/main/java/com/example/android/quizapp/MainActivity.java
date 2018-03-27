@@ -2,6 +2,7 @@ package com.example.android.quizapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -16,14 +17,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         LinearLayout questionListLinearLayout = findViewById(R.id.questionsListView);
         questionManager = new QuestionManager();
+        try {
+            questionManager.parseQuestionFromRawTxtFile(getApplicationContext());
+        } catch (Exception e) {
+            Log.e(e.toString(), e.getMessage());
+        }
+
         questionsLayout = new QuestionsLayout(this, questionListLinearLayout, questionManager);
-
-        questionManager.createTextQuestion("Question1", "answer1");
-        questionManager.createSingleChoiceQuestion("Question2", "Answer1", new String[]{"Answer2", "Answer3", "Answer4"});
-        questionManager.createMultipleChoiceQuestion("Question3", new String[]{"One Answer"}, new String[]{"Choice 2", "Choice 3", "Choice 4"});
-        questionManager.createMultipleChoiceQuestion("Question4", new String[]{"One Answer"}, new String[]{"Choice 2", "Choice 3", "Choice 4"});
-
-        questionsLayout.createIntroTextLayout("AAAA\nBBBB\nCCCC");
+        questionsLayout.createIntroTextLayout("Welcome in quiz about World, Cities and Culture");
         questionsLayout.createAllQuestionsLayout();
     }
 

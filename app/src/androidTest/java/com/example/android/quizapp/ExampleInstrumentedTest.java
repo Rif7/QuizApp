@@ -9,18 +9,15 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
+
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() throws Exception {
+    public void parseQuestionsFromTxtFile() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.example.android.quizapp", appContext.getPackageName());
+        QuestionManager questionManager = new QuestionManager();
+        questionManager.parseQuestionFromRawTxtFile(appContext);
     }
+
 }
