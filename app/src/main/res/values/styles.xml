@@ -5,47 +5,46 @@
         <attr name="textAnswerStyleRef" format="reference" />
         <attr name="questionAndAnswerLayoutRef" format="reference" />
         <attr name="gradingButtonStyleRef" format="reference" />
+        <attr name="radioButtonStyleRef" format="reference" />
+        <attr name="checkBoxStyleRef" format="reference" />
     </declare-styleable>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="introStyleRef">@style/intro</item>
         <item name="questionAndAnswerLayoutRef">@style/questionAndAnswerLayout</item>
         <item name="questionStyleRef">@style/question</item>
         <item name="textAnswerStyleRef">@style/textAnswer</item>
         <item name="gradingButtonStyleRef">@style/gradingButton</item>
+        <item name="radioButtonStyleRef">@style/radioButtonStyle</item>
+        <item name="checkBoxStyleRef">@style/checkBoxStyle</item>
     </style>
 
-    <style name="intro" parent="Base.TextAppearance.AppCompat">
+    <style name="intro" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@android:color/holo_purple</item>
-        <item name="android:text">AAAA\nBBBB\nCCCC"</item>
+        <item name="android:background">@color/intro</item>
     </style>
 
-    <style name="question" parent="Base.TextAppearance.AppCompat">
+    <style name="question" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:background">@android:color/holo_blue_bright</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@color/question</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="textAnswer" parent="Base.Widget.AppCompat.EditText">
+    <style name="textAnswer" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:hint">answer</item>
-
     </style>
 
-    <style name="radioButtonsAnswer" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+    <style name="radioButtonStyle" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="checkBoxAnswer" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+    <style name="checkBoxStyle" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

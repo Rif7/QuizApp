@@ -22,61 +22,76 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView style="@style/intro" />
+                <TextView
+                    android:text="AAAAAA"
+                    style="@style/intro" />
 
-                <LinearLayout style="@style/questionAndAnswerLayout">
+                <LinearLayout
+                    android:background="@color/questionAnswer1"
+                    style="@style/questionAndAnswerLayout">
 
                     <TextView
                         style="@style/question"
                         android:text="Question 1" />
 
-                    <EditText style="@style/textAnswer" />
+                    <EditText
+                        android:background="@color/notAnswered"
+                        style="@style/textAnswer" />
 
                 </LinearLayout>
 
-                <LinearLayout style="@style/questionAndAnswerLayout">
+                <LinearLayout
+                    android:background="@color/questionAnswer2"
+                    style="@style/questionAndAnswerLayout">
 
                     <TextView
                         style="@style/question"
                         android:text="Question 2" />
 
                     <RadioGroup
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <RadioButton
                             android:text="question2_answer1"
-                            style="@style/radioButtonsAnswer" />
+                            android:background="@color/wrong"
+                            style="@style/radioButtonStyle" />
 
                         <RadioButton
                             android:text="question2_answer2"
-                            style="@style/radioButtonsAnswer" />
+                            android:background="@color/correct"
+                            style="@style/radioButtonStyle" />
 
                         <RadioButton
                             android:text="question2_answer3"
-                            style="@style/radioButtonsAnswer" />
+                            style="@style/radioButtonStyle" />
 
                     </RadioGroup>
 
                 </LinearLayout>
 
-                <LinearLayout style="@style/questionAndAnswerLayout">
+                <LinearLayout
+                    android:background="@color/questionAnswer1"
+                    style="@style/questionAndAnswerLayout">
 
                     <TextView
                         style="@style/question"
                         android:text="Question 3" />
 
                     <CheckBox
-                        android:text="question3_answer1"
-                        style="@style/checkBoxAnswer" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/correct"
+                        android:text="question3_answer1" />
 
                     <CheckBox
                         android:text="question3_answer2"
-                        style="@style/checkBoxAnswer" />
+                        android:background="@color/notAnswered"
+                        style="@style/checkBoxStyle" />
 
                     <CheckBox
                         android:text="question3_answer3"
-                        style="@style/checkBoxAnswer" />
+                        style="@style/checkBoxStyle" />
 
                 </LinearLayout>
 

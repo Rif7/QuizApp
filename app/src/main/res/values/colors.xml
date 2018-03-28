@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="intro">#966fc0</color>
+    <color name="questionAnswer1">#736dd2cb</color>
+    <color name="questionAnswer2">#42ce64c7</color>
+    <color name="correct">#68c987</color>
+    <color name="wrong">#a80b20</color>
+    <color name="notAnswered">#ffff5c</color>
+    <color name="question">#00a2ff</color>
 </resources>

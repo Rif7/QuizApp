@@ -2,6 +2,9 @@ package com.example.android.quizapp;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,16 +15,42 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class QuestionsLayout {
-    Context mainActivityContext;
+    private static int correctColorInt;
+    private static int wrongColorInt;
+    private static int notAnsweredColorInt;
+    private static int oddQuestionColor;
+    private static int evenQuestionColor;
+    private Context mainActivityContext;
     LinearLayout questionsListView;
-    QuestionManager questionManager;
-
+    private QuestionManager questionManager;
 
     QuestionsLayout(Context mainActivityContext, LinearLayout questionsListView, QuestionManager questionManager) {
         this.mainActivityContext = mainActivityContext;
         this.questionsListView = questionsListView;
         this.questionManager = questionManager;
         this.questionsListView.removeAllViewsInLayout();
+        correctColorInt = ContextCompat.getColor(this.mainActivityContext, R.color.correct);
+        wrongColorInt = ContextCompat.getColor(this.mainActivityContext, R.color.wrong);
+        notAnsweredColorInt = ContextCompat.getColor(this.mainActivityContext, R.color.notAnswered);
+        oddQuestionColor = ContextCompat.getColor(this.mainActivityContext, R.color.questionAnswer1);
+        evenQuestionColor = ContextCompat.getColor(this.mainActivityContext, R.color.questionAnswer2);
+
+    }
+
+    public static int getAnswerColorAsInt(Boolean isCorrect, Boolean isChosen) {
+        if (isCorrect) {
+            if (isChosen) {
+                return correctColorInt;
+            } else {
+                return notAnsweredColorInt;
+            }
+        } else {
+            if (isChosen) {
+                return wrongColorInt;
+            } else {
+                return Color.TRANSPARENT; // to indicate no color change
+            }
+        }
     }
 
     void createIntroTextLayout(String text) {
@@ -34,6 +63,11 @@ public class QuestionsLayout {
         LinearLayout textAnswerQuestion = new LinearLayout(mainActivityContext, null, R.attr.questionAndAnswerLayoutRef);
         TextView questionText = new TextView(mainActivityContext, null, R.attr.questionStyleRef);
         questionText.setText(question);
+        if (this.questionsListView.getChildCount() % 2 == 0) {
+            textAnswerQuestion.setBackgroundColor(oddQuestionColor);
+        } else {
+            textAnswerQuestion.setBackgroundColor(evenQuestionColor);
+        }
         textAnswerQuestion.addView(questionText);
         return textAnswerQuestion;
     }
@@ -50,8 +84,13 @@ public class QuestionsLayout {
         LinearLayout questionBaseLayout = createQuestionBaseLayout(singleChoiceQuestion.getQuestion());
         ArrayList<Choice> choiceArrayList = singleChoiceQuestion.getChoices();
         RadioGroup radioGroup = new RadioGroup(mainActivityContext);
+        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(
+                RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
+        radioGroup.setLayoutParams(layoutParams);
         for (Choice choice : choiceArrayList) {
-            RadioButton radioButton = new RadioButton(mainActivityContext, null, R.attr.radioButtonStyle);
+            RadioButton radioButton = new RadioButton(mainActivityContext, null, R.attr.radioButtonStyleRef);
+            radioButton.setLayoutParams(new RadioGroup.LayoutParams(
+                    RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT));
             radioButton.setText(choice.getChoiceText());
             choice.setCompoundButtonRef(radioButton);
             radioGroup.addView(radioButton);
@@ -64,7 +103,7 @@ public class QuestionsLayout {
         LinearLayout questionBaseLayout = createQuestionBaseLayout(multipleChoiceQuestion.getQuestion());
         ArrayList<Choice> choiceArrayList = multipleChoiceQuestion.getChoices();
         for (Choice choice : choiceArrayList) {
-            CheckBox checkBox = new CheckBox(mainActivityContext, null, R.attr.checkboxStyle);
+            CheckBox checkBox = new CheckBox(mainActivityContext, null, R.attr.checkBoxStyleRef);
             checkBox.setText(choice.getChoiceText());
             choice.setCompoundButtonRef(checkBox);
             questionBaseLayout.addView(checkBox);

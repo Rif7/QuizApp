@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         for (AbstractQuestion question : questionManager.getQuestionList()) {
             total++;
             question.updateAnswer();
+            question.setProperColorAfterAnswer();
             if (question.isCorrect()) {
                 correct++;
             }

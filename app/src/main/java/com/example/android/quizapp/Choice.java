@@ -21,6 +21,11 @@ public class Choice {
         isChosen = compoundButtonRef.isChecked();
     }
 
+    void setProperColorAfterAnswer() {
+        int colorId = QuestionsLayout.getAnswerColorAsInt(isCorrect, isChosen);
+        compoundButtonRef.setBackgroundColor(colorId);
+    }
+
     String getChoiceText() {
         return choiceText;
     }

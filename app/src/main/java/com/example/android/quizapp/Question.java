@@ -18,6 +18,8 @@ abstract class AbstractQuestion {
     abstract boolean isAnswered();
 
     abstract void updateAnswer();
+
+    abstract void setProperColorAfterAnswer();
 }
 
 abstract class ChoiceQuestion extends AbstractQuestion {
@@ -48,6 +50,12 @@ abstract class ChoiceQuestion extends AbstractQuestion {
         }
     }
 
+    @Override
+    void setProperColorAfterAnswer() {
+        for (Choice choice : this.choices) {
+            choice.setProperColorAfterAnswer();
+        }
+    }
 }
 
 
@@ -65,7 +73,6 @@ class MultipleChoiceQuestion extends ChoiceQuestion {
         }
         return true;
     }
-
 
 }
 
@@ -111,7 +118,13 @@ class TextEntryQuestion extends AbstractQuestion {
 
     @Override
     void updateAnswer() {
-        respond = editTextRef.getText().toString();
+        respond = editTextRef.getText().toString().trim();
+    }
+
+    @Override
+    void setProperColorAfterAnswer() {
+        int colorId = QuestionsLayout.getAnswerColorAsInt(isCorrect(), isAnswered());
+        editTextRef.setBackgroundColor(colorId);
     }
 
     @Override
@@ -121,7 +134,7 @@ class TextEntryQuestion extends AbstractQuestion {
 
     @Override
     boolean isAnswered() {
-        return !this.respond.equals("");
+        return this.respond.length() > 0;
     }
 }
 
