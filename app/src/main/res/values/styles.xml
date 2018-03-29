@@ -28,6 +28,7 @@
     </style>
 
     <style name="question" parent="TextAppearance.AppCompat">
+        <item name="android:layout_marginTop">4dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
         <item name="android:background">@color/question</item>
@@ -57,7 +58,9 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="gradingButton">
+    <style name="gradingButton" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:text">Verify your answers</item>

@@ -13,9 +13,9 @@ import java.util.Collections;
 
 class QuestionManager {
     private static QuestionManager instance;
-    private ArrayList<AbstractQuestion> questionList;
+    private final ArrayList<AbstractQuestion> questionList;
 
-    protected QuestionManager() {
+    QuestionManager() {
         questionList = new ArrayList<>();
     }
 
@@ -62,16 +62,16 @@ class QuestionManager {
         return questionObject;
     }
 
-    AbstractQuestion addProperQuestion(String question, ArrayList<String> answers, ArrayList<String> choices) {
+    private void addProperQuestion(String question, ArrayList<String> answers, ArrayList<String> choices) {
         Log.i("addProperQuestion", question);
         if (answers.size() == 1) {
             if (choices.size() == 0) {
-                return createTextQuestion(question, answers.get(0));
+                createTextQuestion(question, answers.get(0));
             } else {
-                return createSingleChoiceQuestion(question, answers.get(0), choices.toArray(new String[0]));
+                createSingleChoiceQuestion(question, answers.get(0), choices.toArray(new String[0]));
             }
         } else {
-            return createMultipleChoiceQuestion(question, answers.toArray(new String[0]), choices.toArray(new String[0]));
+            createMultipleChoiceQuestion(question, answers.toArray(new String[0]), choices.toArray(new String[0]));
         }
     }
 
@@ -83,12 +83,10 @@ class QuestionManager {
         BufferedReader reader = new BufferedReader(new InputStreamReader(questionFile));
         String question = reader.readLine();
         while (true) {
-            Log.i("addAnswer", question);
             ArrayList<String> answers = new ArrayList<>();
             ArrayList<String> choices = new ArrayList<>();
             String choice = reader.readLine();
             while (choice.length() != 0) {
-                Log.i("two", choice);
                 if (choice.charAt(0) == CORRECT_ANS_MARK) {
                     answers.add(choice.substring(1, choice.length()));
                 } else {
@@ -96,7 +94,7 @@ class QuestionManager {
                 }
                 choice = reader.readLine();
                 if (choice == null) {
-                    return;
+                    break;
                 }
             }
             addProperQuestion(question, answers, choices);

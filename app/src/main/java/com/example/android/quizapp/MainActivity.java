@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    QuestionsLayout questionsLayout;
-    static Boolean gradingButtonWasClicked = false;
+    private QuestionsLayout questionsLayout;
+    private static Boolean gradingButtonWasClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // to restore background colors after rotate
         if (gradingButtonWasClicked) {
             for (AbstractQuestion question : QuestionManager.getInstance().getQuestionList()) {
-                question.setProperColorAfterAnswer();
+                question.changeQuestionLayoutAfterAnswer();
             }
         }
     }
@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
         for (AbstractQuestion question : QuestionManager.getInstance().getQuestionList()) {
             total++;
             question.updateAnswer();
-            question.setProperColorAfterAnswer();
+            question.changeQuestionLayoutAfterAnswer();
             if (question.isCorrect()) {
                 correct++;
             }
         }
         Toast toast = Toast.makeText(getApplicationContext(),
-                "You have result" + correct + "/" + total, Toast.LENGTH_SHORT);
+                "You have result " + correct + "/" + total, Toast.LENGTH_SHORT);
         toast.show();
         gradingButtonWasClicked = true;
     }

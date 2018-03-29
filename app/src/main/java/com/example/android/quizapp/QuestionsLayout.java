@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,14 +15,14 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class QuestionsLayout implements Serializable {
+class QuestionsLayout implements Serializable {
     private static int correctColorInt;
     private static int wrongColorInt;
     private static int notAnsweredColorInt;
     private static int oddQuestionColor;
     private static int evenQuestionColor;
-    private Context mainActivityContext;
-    LinearLayout questionsListView;
+    private final Context mainActivityContext;
+    private final LinearLayout questionsListView;
 
     QuestionsLayout(Context mainActivityContext, LinearLayout questionsListView) {
         this.mainActivityContext = mainActivityContext;
@@ -87,7 +86,6 @@ public class QuestionsLayout implements Serializable {
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(
                 RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
         radioGroup.setLayoutParams(layoutParams);
-        singleChoiceQuestion.setRadioGroupRef(radioGroup);
         int checkedChoiceIResId = 0;
         for (Choice choice : choiceArrayList) {
             RadioButton radioButton = new RadioButton(mainActivityContext, null, R.attr.radioButtonStyleRef);
@@ -98,7 +96,6 @@ public class QuestionsLayout implements Serializable {
             if (choice.isChosen()) {
                 checkedChoiceIResId = View.generateViewId();
                 radioButton.setId(checkedChoiceIResId);
-                radioGroup.check(choice.getResId());
             }
             radioGroup.addView(radioButton);
         }

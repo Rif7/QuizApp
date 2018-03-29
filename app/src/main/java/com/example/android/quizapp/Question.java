@@ -1,30 +1,31 @@
 package com.example.android.quizapp;
 
 import android.widget.EditText;
-import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 
 abstract class AbstractQuestion {
-    private String question;
+    private final String question;
 
     AbstractQuestion(String question) {
         this.question = question;
     }
+
     String getQuestion() {
         return question;
     }
 
     abstract boolean isCorrect();
+
     abstract boolean isAnswered();
 
     abstract void updateAnswer();
 
-    abstract void setProperColorAfterAnswer();
+    abstract void changeQuestionLayoutAfterAnswer();
 }
 
 abstract class ChoiceQuestion extends AbstractQuestion {
-    ArrayList<Choice> choices;
+    final ArrayList<Choice> choices;
 
     ChoiceQuestion(String question, ArrayList<Choice> choices) {
         super(question);
@@ -45,13 +46,12 @@ abstract class ChoiceQuestion extends AbstractQuestion {
     }
 
     @Override
-    void setProperColorAfterAnswer() {
+    void changeQuestionLayoutAfterAnswer() {
         for (Choice choice : this.choices) {
-            choice.setProperColorAfterAnswer();
+            choice.changeQuestionLayoutAfterAnswer();
         }
     }
 }
-
 
 class MultipleChoiceQuestion extends ChoiceQuestion {
     MultipleChoiceQuestion(String question, ArrayList<Choice> choices) {
@@ -77,8 +77,6 @@ class MultipleChoiceQuestion extends ChoiceQuestion {
 }
 
 class SingleChoiceQuestion extends ChoiceQuestion {
-    private RadioGroup radioGroupRef;
-    private int answeredChoiceID;
     SingleChoiceQuestion(String question, ArrayList<Choice> choices) {
         super(question, choices);
     }
@@ -97,31 +95,24 @@ class SingleChoiceQuestion extends ChoiceQuestion {
     void updateAnswer() {
         for (Choice choice : this.choices) {
             choice.updateAnswer();
-            if (choice.isChosen()) {
-                answeredChoiceID = choice.getResId();
-            }
         }
     }
 
-    void setRadioGroupRef(RadioGroup radioGroupRef) {
-        this.radioGroupRef = radioGroupRef;
-        this.radioGroupRef.check(answeredChoiceID);
-    }
 }
 
 class TextEntryQuestion extends AbstractQuestion {
-    private String answer;
+    private final String correctAnswer;
     private String respond;
     private EditText editTextRef;
 
     TextEntryQuestion(String question, String answer) {
         super(question);
-        this.answer = answer.toLowerCase();
+        this.correctAnswer = answer.toLowerCase();
         this.respond = "";
     }
 
-    String getAnswer() {
-        return answer;
+    String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     void setRespond(String respond) {
@@ -139,14 +130,19 @@ class TextEntryQuestion extends AbstractQuestion {
     }
 
     @Override
-    void setProperColorAfterAnswer() {
-        int colorId = QuestionsLayout.getAnswerColorAsInt(isCorrect(), isAnswered());
-        editTextRef.setBackgroundColor(colorId);
+    void changeQuestionLayoutAfterAnswer() {
+        int colorId = QuestionsLayout.getAnswerColorAsInt(isCorrect(), true);
+        editTextRef.setTextColor(colorId);
+        String msg = correctAnswer;
+        if (!isCorrect()) {
+            msg = "correct: " + correctAnswer;
+        }
+        editTextRef.setText(msg);
     }
 
     @Override
     boolean isCorrect() {
-        return this.answer.equals(this.respond);
+        return this.correctAnswer.equals(this.respond);
     }
 
     @Override

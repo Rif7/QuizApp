@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 
 public class QuestionTest {
-    private static QuestionManager questionManager = new QuestionManager();
+    private static final QuestionManager questionManager = new QuestionManager();
 
     @Test
     public void textEntryQuestionTest() throws Exception {

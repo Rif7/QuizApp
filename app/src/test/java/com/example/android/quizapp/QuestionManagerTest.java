@@ -18,7 +18,7 @@ public class QuestionManagerTest {
         AbstractQuestion questionObject = questionManager.createTextQuestion(question, answer);
         assertEquals(question, questionObject.getQuestion());
         TextEntryQuestion textEntryQuestion = (TextEntryQuestion) questionObject;
-        assertEquals(answer, textEntryQuestion.getAnswer());
+        assertEquals(answer, textEntryQuestion.getCorrectAnswer());
     }
 
     @Test
