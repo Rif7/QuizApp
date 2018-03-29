@@ -12,10 +12,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 class QuestionManager {
-    ArrayList<AbstractQuestion> questionList;
+    private static QuestionManager instance;
+    private ArrayList<AbstractQuestion> questionList;
 
-    QuestionManager() {
+    protected QuestionManager() {
         questionList = new ArrayList<>();
+    }
+
+    public static QuestionManager getInstance() {
+        if (instance == null) {
+            instance = new QuestionManager();
+        }
+        return instance;
     }
 
     ArrayList<AbstractQuestion> getQuestionList() {

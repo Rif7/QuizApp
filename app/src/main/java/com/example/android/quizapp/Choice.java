@@ -4,6 +4,7 @@ import android.widget.CompoundButton;
 
 public class Choice {
     private CompoundButton compoundButtonRef;
+    private int resId;
     private String choiceText;
     private boolean isChosen;
     private boolean isCorrect;
@@ -11,6 +12,14 @@ public class Choice {
     Choice(String choiceText, boolean isCorrect) {
         this.choiceText = choiceText;
         this.isCorrect = isCorrect;
+    }
+
+    public int getResId() {
+        return resId;
+    }
+
+    public void setResId(int resID) {
+        this.resId = resID;
     }
 
     void setCompoundButtonRef(CompoundButton compoundButton) {

@@ -1,6 +1,7 @@
 package com.example.android.quizapp;
 
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 
@@ -44,13 +45,6 @@ abstract class ChoiceQuestion extends AbstractQuestion {
     }
 
     @Override
-    void updateAnswer() {
-        for (Choice choice : this.choices) {
-            choice.updateAnswer();
-        }
-    }
-
-    @Override
     void setProperColorAfterAnswer() {
         for (Choice choice : this.choices) {
             choice.setProperColorAfterAnswer();
@@ -74,9 +68,17 @@ class MultipleChoiceQuestion extends ChoiceQuestion {
         return true;
     }
 
+    @Override
+    void updateAnswer() {
+        for (Choice choice : this.choices) {
+            choice.updateAnswer();
+        }
+    }
 }
 
 class SingleChoiceQuestion extends ChoiceQuestion {
+    private RadioGroup radioGroupRef;
+    private int answeredChoiceID;
     SingleChoiceQuestion(String question, ArrayList<Choice> choices) {
         super(question, choices);
     }
@@ -89,6 +91,21 @@ class SingleChoiceQuestion extends ChoiceQuestion {
             }
         }
         return false;
+    }
+
+    @Override
+    void updateAnswer() {
+        for (Choice choice : this.choices) {
+            choice.updateAnswer();
+            if (choice.isChosen()) {
+                answeredChoiceID = choice.getResId();
+            }
+        }
+    }
+
+    void setRadioGroupRef(RadioGroup radioGroupRef) {
+        this.radioGroupRef = radioGroupRef;
+        this.radioGroupRef.check(answeredChoiceID);
     }
 }
 
@@ -113,8 +130,8 @@ class TextEntryQuestion extends AbstractQuestion {
 
     void setEditTextRef(EditText editText) {
         editTextRef = editText;
+        editText.setText(respond);
     }
-
 
     @Override
     void updateAnswer() {
